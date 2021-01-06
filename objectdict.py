@@ -8,11 +8,11 @@ class ObjectDict(dict):
     """
 
     def __init__(self, *args, **kwargs):
-
-        super(ObjectDict, self).__init__(*args, **kwargs)
         for k, v in self.__class__.__dict__.items():
             if not k.startswith('_'):
                 self[k] = v
+        super(ObjectDict, self).__init__(*args, **kwargs)
+
 
 
     def __getattr__(self, name):

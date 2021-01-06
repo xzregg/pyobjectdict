@@ -35,11 +35,12 @@ class TestObjectDict(TestCase):
 
         self.assertEqual(instance.int_field, 2)
         instance['int_field'] = 5
-        instance.int2_f='basd'
+        instance.int2_f = 'basd'
         self.assertEqual(instance.int_field, 5)
-        print(SimpleObjectDict(), instance, instance.int_field, SimpleObjectDict().from_json(json.dumps(instance)))
+        print(SimpleObjectDict({"int_field": 4}, new_field='3'), instance, instance.int_field,
+              SimpleObjectDict().from_json(json.dumps(instance)))
 
-        self.assertEqual(instance, SimpleObjectDict().from_json(json.dumps(instance)))
+        self.assertEqual(SimpleObjectDict(), SimpleObjectDict().from_json(json.dumps(SimpleObjectDict())))
 
         self.assertEqual(instance.str_field, 'b')
         self.assertEqual(instance.dict_field, {'3': 4})
