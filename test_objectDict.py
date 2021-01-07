@@ -20,6 +20,10 @@ class TestObjectDict(TestCase):
             dict_field = {}
             int2_f: int
 
+            def asd(self):
+                pass
+
+        print(ObjectDict(),SimpleObjectDict().int_field)
         instance = SimpleObjectDict()
         instance.int_field = 2
         instance.str_field = 'b'
@@ -31,7 +35,7 @@ class TestObjectDict(TestCase):
         self.assertEqual(SimpleObjectDict().str_field, 'a')
         self.assertEqual(SimpleObjectDict().dict_field, {})
 
-        print(SimpleObjectDict(), instance, instance.int_field)
+        print(ObjectDict(),SimpleObjectDict(), instance, instance.int_field)
 
         self.assertEqual(instance.int_field, 2)
         instance['int_field'] = 5

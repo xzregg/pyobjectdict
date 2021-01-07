@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
+from inspect import isfunction
 
 
 class ObjectDict(dict):
@@ -8,12 +9,11 @@ class ObjectDict(dict):
     """
 
     def __init__(self, *args, **kwargs):
+
         for k, v in self.__class__.__dict__.items():
-            if not k.startswith('_'):
+            if not k.startswith('__') and not isfunction(v):
                 self[k] = v
         super(ObjectDict, self).__init__(*args, **kwargs)
-
-
 
     def __getattr__(self, name):
         try:
