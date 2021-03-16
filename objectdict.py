@@ -9,26 +9,26 @@ class ObjectDict(dict):
     """
 
     def __init__(self, *args, **kwargs):
-
         for k, v in self.__class__.__dict__.items():
             if not k.startswith('__') and not isfunction(v):
                 self[k] = v
         super(ObjectDict, self).__init__(*args, **kwargs)
 
-    def __getattr__(self, name):
+    __setattr__ = dict.__setitem__
+
+    def __getattribute__(self, name):
         try:
             return self[name]
         except KeyError:
-            raise AttributeError(name)
-
-    def __setitem__(self, name, value):
-        super(ObjectDict, self).__setitem__(name, value)
-        super(ObjectDict, self).__setattr__(name, value)
-
-    def __setattr__(self, name, value):
-        super(ObjectDict, self).__setitem__(name, value)
-        super(ObjectDict, self).__setattr__(name, value)
+            return super(ObjectDict, self).__getattribute__(name)
 
     def from_json(self, json_data, json_loads=json.loads):
         self.update(json_loads(json_data))
         return self
+
+
+def sort_set_list(l):
+    new_list = list(l)
+    set_list = list(set(new_list))
+    set_list.sort(key=new_list.index)
+    return set_list
