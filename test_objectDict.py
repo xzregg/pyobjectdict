@@ -19,6 +19,15 @@ class TestObjectDict(TestCase):
             str_field = 'a'
             dict_field = {}
             int2_f: int
+            _protect = 'protect'
+
+            @classmethod
+            def classmethod(cls):
+                pass
+
+            @property
+            def proty(cls):
+                return 'property'
 
             def asd(self):
                 return 'asd'

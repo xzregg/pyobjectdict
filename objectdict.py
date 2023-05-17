@@ -10,7 +10,7 @@ class ObjectDict(dict):
 
     def __init__(self, *args, **kwargs):
         for k, v in self.__class__.__dict__.items():
-            if not k.startswith('__') and not isfunction(v):
+            if not k.startswith('_') and not isfunction(v) and not isinstance(v, classmethod) and not isinstance(v, staticmethod) and not isinstance(v, property):
                 self[k] = v
         super(ObjectDict, self).__init__(*args, **kwargs)
 
