@@ -1,6 +1,25 @@
 # -*- coding: utf-8 -*-
 # https://blog.konghy.cn/2018/04/29/setup-dot-py/
+import shutil
+
 import setuptools
+import sys
+import os
+
+if sys.argv[-1] == 'publish':
+    if os.system("pip freeze | grep twine"):
+        print("twine not installed.\nUse `pip install twine`.\nExiting.")
+        sys.exit()
+    os.system("python setup.py sdist bdist_wheel")
+    if os.system("twine check dist/*"):
+        print("twine check failed. Packages might be outdated.")
+        print("Try using `pip install -U twine wheel`.\nExiting.")
+        sys.exit()
+    os.system("twine upload dist/*")
+    shutil.rmtree('dist')
+    shutil.rmtree('build')
+
+    sys.exit()
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
